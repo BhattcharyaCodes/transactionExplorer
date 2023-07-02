@@ -23,9 +23,9 @@ class TestTransactionPage:
                               "/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
             chrome_driver_path = 'usr/local/bin/chromedriver'
             # '/path/to/chromedriver'
-            self.driver = webdriver.Chrome()
-                # chrome_driver_path, options=chrome_options)
-            self.driver.get(transaction_url)
+
+            driver = webdriver.Chrome(chrome_driver_path, options=chrome_options)
+            driver.get(transaction_url)
         except WebDriverException as e:
             print("An error occurred while opening the URL:", e)
 
@@ -35,6 +35,7 @@ class TestTransactionPage:
     def test_transaction(self):
         expected_text = "25 of 2875 Transactions"
         elem_text = self.driver.find_element(WebLocators.BLOCK_DETAILS).text
+        print(elem_text)
         assert elem_text == expected_text, f"Element text '{elem_text}' does not match expected text '{expected_text}'"
 
     @allure.title("Transaction Test 2")
@@ -76,7 +77,6 @@ class TestTransactionPage:
 
 if __name__ == "__main__":
     test = TestTransactionPage()
-    # test.test_setup()
     test.test_transaction()
     test.test_homepage()
     test.tearDown()
