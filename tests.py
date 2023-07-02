@@ -42,14 +42,6 @@ class TestPage:
         # For each transaction, the transaction hash can also be saved in the same hashmap when the loop is running
         # At the end of the loop, the hash map that corresponds to a 1:2 ins and outs will be the one we need to print
         # Print out the transaction id for that on console
-        # for el in transaction_in_elements:
-        #     el_size = el.size()
-        #
-        #     # store each size in hasmap and then compare
-        #
-        # for el in transaction_out_elements:
-        #     el_size = el.size()
-        #     # store each size in hashmap and then compare
 
         for i in list(range(25)):
             key = t_id[i].text
