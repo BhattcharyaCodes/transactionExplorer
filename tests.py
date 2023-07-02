@@ -1,42 +1,46 @@
 import pytest as pytest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 import allure
-import locator
+
+from locator import WebLocators
 
 
-@pytest.mark.usefixtures("setup")
-class TestHomePage:
+# @pytest.mark.smoke()
+class TestTransactionPage:
     @allure.title("setup")
     @allure.description("Test setup")
     def test_setup(self):
         try:
-            options = Options()
-            options.add_argument('--headless')
-            options.add_argument('--disable-gpu')
+            chrome_options = Options()
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--disable-gpu')
+            chrome_options.add_argument("--window-size=1920x1080")
+            chrome_options.add_argument("--verbose")
             transaction_url = "https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
-            chrome_driver_path = '/path/to/chromedriver'
-            driver = webdriver.Chrome(chrome_driver_path, chrome_options=options)
+            chrome_driver_path = 'usr/local/bin/chromedriver'
+            # '/path/to/chromedriver'
+            driver = webdriver.Chrome(chrome_driver_path, options=chrome_options)
+            driver.get(transaction_url)
         except WebDriverException as e:
             print("An error occurred while opening the URL:", e)
-        finally:
-            driver.quit()
 
-@pytest.fixture(scope='session')
-class TestPage:
-    @allure.title("Transaction Test")
+    # @pytest.fixture(scope='session')
+    @allure.title("Transaction Test 1")
     @allure.description("Validate the section has the heading 25 of 2875 Transactions")
     def test_transaction(self):
         expected_text = "25 of 2875 Transactions"
-        elem_text = locator.BLOCK_DETAILS.text
+        elem_text = WebLocators.BLOCK_DETAILS.text
         assert elem_text == expected_text, f"Element text '{elem_text}' does not match expected text '{expected_text}'"
 
+    @allure.title("Transaction Test 2")
     @allure.description("Parse & Validate the 1 in 2 Op, transaction")
-    def test_homepage_title(self):
-        t_id = locator.TRANSACTION_ID
-        transaction_in_elements = locator.TRANSACTION_LIST_INPUT
-        transaction_out_elements = locator.TRANSACTION_LIST_OUTPUT
+    def test_homepage(self):
+        t_id = WebLocators.TRANSACTION_ID
+        transaction_in_elements = WebLocators.TRANSACTION_LIST_INPUT
+        transaction_out_elements = WebLocators.TRANSACTION_LIST_OUTPUT
         hashMap = {}
 
         #     First the total elements inside the vins will be found using the size of the elements inside vins,
@@ -64,6 +68,13 @@ class TestPage:
                 assert False
                 driver.quit()
 
+    def tearDown(self):
+        self.driver.close()
 
-# if __name__ == main:
 
+if __name__ == "__main__":
+    test = TestTransactionPage()
+    test.test_setup()
+    test.test_transaction()
+    test.test_homepage()
+    test.tearDown()
