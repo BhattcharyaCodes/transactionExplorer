@@ -53,6 +53,7 @@ class TestPage:
             t_out = transaction_out_elements[i].size
             value = (t_in, t_out)
             hashMap[key] = value
+            print(hashMap[key, value])
 
         for key, value in hashMap.items():
             if value == (1, 2):
@@ -62,3 +63,7 @@ class TestPage:
             else:
                 assert False
                 driver.quit()
+
+
+# if __name__ == main:
+
