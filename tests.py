@@ -22,8 +22,8 @@ class TestHomePage:
         except WebDriverException as e:
             print("An error occurred while opening the URL:", e)
         finally:
+            assert False
             driver.quit()
-
 
 @pytest.fixture(scope='session')
 class TestPage:
