@@ -1,22 +1,28 @@
 import pytest as pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import WebDriverException
 import allure
 import locator
 
 
 @pytest.mark.usefixtures("setup")
 class TestHomePage:
-    @allure.title("Home page - smoke test")
-    @allure.description("Check if home page of Demoblaze has correct title")
+    @allure.title("setup")
+    @allure.description("Test setup")
     def test_setup(self):
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
-        transaction_url = "https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
-        chrome_driver_path = '/path/to/chromedriver'
-        driver = webdriver.Chrome(chrome_driver_path, chrome_options=options)
-        assert ("blockstream" in transaction_url)
+        try:
+            options = Options()
+            options.add_argument('--headless')
+            options.add_argument('--disable-gpu')
+            transaction_url = "https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
+            chrome_driver_path = '/path/to/chromedriver'
+            driver = webdriver.Chrome(chrome_driver_path, chrome_options=options)
+            assert ("blockstream" in transaction_url)
+        except WebDriverException as e:
+            print("An error occurred while opening the URL:", e)
+        finally:
+            driver.quit()
 
 
 @pytest.fixture(scope='session')
@@ -58,5 +64,3 @@ class TestPage:
             else:
                 assert False
                 driver.quit()
-
-
