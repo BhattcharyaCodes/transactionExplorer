@@ -12,17 +12,19 @@ from locator import WebLocators
 class TestTransactionPage:
     @allure.title("setup")
     @allure.description("Test setup")
-    def test_setup(self):
+    def __init__(self):
         try:
             chrome_options = Options()
             chrome_options.add_argument('--headless')
             chrome_options.add_argument('--disable-gpu')
             chrome_options.add_argument("--window-size=1920x1080")
             chrome_options.add_argument("--verbose")
-            transaction_url = "https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
+            transaction_url = "https://blockstream.info/block" \
+                              "/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732"
             chrome_driver_path = 'usr/local/bin/chromedriver'
             # '/path/to/chromedriver'
-            self.driver = webdriver.Chrome(chrome_driver_path, options=chrome_options)
+            self.driver = webdriver.Chrome()
+                # chrome_driver_path, options=chrome_options)
             self.driver.get(transaction_url)
         except WebDriverException as e:
             print("An error occurred while opening the URL:", e)
@@ -74,7 +76,7 @@ class TestTransactionPage:
 
 if __name__ == "__main__":
     test = TestTransactionPage()
-    test.test_setup()
+    # test.test_setup()
     test.test_transaction()
     test.test_homepage()
     test.tearDown()
