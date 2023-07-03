@@ -11,9 +11,9 @@ from util import chromeSession
 
 
 class TestTransactionPage:
-    @allure.title("setup")
-    @allure.description("Test setup")
-    def setUp(self):
+
+    @classmethod
+    def setup(self):
         # self.driver = webdriver.Chrome()
         try:
             self.driver = webdriver.Chrome(options=chromeSession.chrome_options)
@@ -47,18 +47,20 @@ class TestTransactionPage:
             tout_size = []
             for el in t_id:
                 tid_size.append(el.text)
-            #2nd appproach using list of elements
+            # 2nd appproach using list of elements
             for i in range(25):
                 for el in transaction_in_elements:
                     print(el)
                     count_of_divs_in = len(el.find_elements_by_xpath("./div"))
                     print("tin_size", count_of_divs_in)
                     if count_of_divs_in == 1:
+                        assert count_of_divs_in == 1, "count_of_divs_in should be '1'"
                         for el in transaction_out_elements:
                             count_of_divs_out = len(el.find_elements_by_xpath("./div"))
                             if count_of_divs_out == 2:
                                 print("tout_size", count_of_divs_out)
                                 print(tid_size[i])
+                                assert count_of_divs_out == 2, "count_of_divs_ should be '2'"
                                 return
             self.driver.close()
         except NoSuchElementException:
@@ -78,6 +80,6 @@ class TestTransactionPage:
 
 if __name__ == "__main__":
     test = TestTransactionPage()
-    test.setUp()
+    test.setup()
     test.test_transaction()
     test.test_homepage()

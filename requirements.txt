@@ -1,7 +1,6 @@
 allure-pytest==2.8.6
 allure-python-commons==2.8.6
 pytest==5.2.2
-requests
 selenium==3.141.0
 urllib3
 wcwidth==0.1.7
