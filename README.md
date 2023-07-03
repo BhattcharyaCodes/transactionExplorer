@@ -19,5 +19,8 @@ Instructions to run the tests:
 3) ```pip install -r requirements.txt```
 4) Run the command, for allure test reports, `pytest --alluredir=<path>` , --> replace path with reports directory path
 
-OUTPUT:
+CLI OUTPUT: when __main__ is triggered:
 ![image](https://github.com/BhattcharyaCodes/transactionExplorer/assets/26433219/150f443d-822e-43bb-8c55-1e167f29fd7b)
+
+With Allure reports integration:
+<img width="1792" alt="Screenshot 2023-07-03 at 12 45 17 PM" src="https://github.com/BhattcharyaCodes/transactionExplorer/assets/26433219/3601c0ab-0b90-4e9d-a45a-6894161dc428">
