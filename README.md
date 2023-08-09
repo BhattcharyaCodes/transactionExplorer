@@ -1,5 +1,4 @@
 # transactionExplorer
-BITGO
 
 Pre-requisites:
 1) Install Java 8, set path variable
@@ -24,3 +23,12 @@ CLI OUTPUT: when __main__ is triggered:
 
 With Allure reports integration:
 <img width="1792" alt="Screenshot 2023-07-03 at 12 45 17 PM" src="https://github.com/BhattcharyaCodes/transactionExplorer/assets/26433219/3601c0ab-0b90-4e9d-a45a-6894161dc428">
+
+## 🛠️TODO : next phase
+Add singleton to Driver
+Add Edge, Opera and Safari support
+Add Reporting Tool
+Add Logger / Handle errors
+Add Screenshots
+Add API Testing support
+Add integration with Slack / Teams
